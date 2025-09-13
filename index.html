@@ -892,17 +892,18 @@
         });
         
         if (response.ok) {
-            // PDF generated successfully
-            const pdfBlob = await response.blob();
-            const url = window.URL.createObjectURL(pdfBlob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Beobachtungsbogen_${formData.date || 'unbekannt'}_${formData.referee?.replace(/\s+/g, '_') || 'unbekannt'}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            // Get HTML content and open in new window for printing
+            const htmlContent = await response.text();
             
+            // Open new window with the HTML content
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            
+            // Focus the new window (so print dialog appears there)
+            printWindow.focus();
+            
+            successMessage.textContent = 'PDF-Vorschau wurde in neuem Fenster geöffnet. Verwenden Sie dort "Als PDF drucken" oder Strg+P.';
             successMessage.style.display = 'block';
         } else {
             throw new Error(`Function returned: ${response.status}`);
@@ -912,8 +913,9 @@
         console.error('PDF generation failed, using fallback:', error);
         
         // Fallback to simple text file
-        const pdfContent = generateSimplePDF(formData);
-        downloadPDFContent(pdfContent, formData);
+        const fallbackData = collectFormData(form);
+        const pdfContent = generateSimplePDF(fallbackData);
+        downloadPDFContent(pdfContent, fallbackData);
         
         errorMessage.textContent = 'PDF-Generierung fehlgeschlagen, Text-Version wird heruntergeladen.';
         errorMessage.style.display = 'block';
