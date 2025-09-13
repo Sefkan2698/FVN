@@ -86,8 +86,20 @@
         }
         
         .header {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
             margin-bottom: 30px;
+        }
+        
+        .logo {
+            height: 60px;
+            width: auto;
+        }
+        
+        .header-text {
+            text-align: center;
             color: #0066cc;
             font-size: 18px;
             font-weight: bold;
@@ -160,15 +172,55 @@
             font-weight: 500;
         }
         
+        /* Farbige Radio-Button Zellen */
         .radio-group {
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
-        
+
+        .radio-group.rating-1 {
+            background-color: #ffebee;
+            border: 2px solid #ffcdd2;
+        }
+
+        .radio-group.rating-1:hover,
+        .radio-group.rating-1:has(input:checked) {
+            background-color: #ffcdd2;
+            border-color: #ef5350;
+            box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3);
+        }
+
+        .radio-group.rating-2 {
+            background-color: #fff3e0;
+            border: 2px solid #ffcc02;
+        }
+
+        .radio-group.rating-2:hover,
+        .radio-group.rating-2:has(input:checked) {
+            background-color: #ffe0b2;
+            border-color: #ff9800;
+            box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+        }
+
+        .radio-group.rating-3 {
+            background-color: #e8f5e8;
+            border: 2px solid #c8e6c9;
+        }
+
+        .radio-group.rating-3:hover,
+        .radio-group.rating-3:has(input:checked) {
+            background-color: #c8e6c9;
+            border-color: #66bb6a;
+            box-shadow: 0 2px 8px rgba(102, 187, 106, 0.3);
+        }
+
         .radio-group input[type="radio"] {
-            margin: 0 5px;
-            transform: scale(1.2);
+            margin: 0;
+            transform: scale(1.3);
         }
         
         .explanation {
@@ -338,8 +390,11 @@
         
         <div class="container">
             <div class="header">
-                FVN - Schiedsrichter<br>
-                Beobachtungsbogen A- und B-Junioren-Niederrheinliga
+                <img src="assets/fvn-logo.png" alt="FVN Logo" class="logo">
+                <div class="header-text">
+                    FVN - Schiedsrichter<br>
+                    Beobachtungsbogen A- und B-Junioren-Niederrheinliga
+                </div>
             </div>
             
             <form id="observationForm" onsubmit="return submitForm(event)">
@@ -433,30 +488,30 @@
                         <div class="criteria-header">1. Spielverständnis</div>
                         <div class="criteria-item">
                             <div class="criteria-label">1.1 Erkennen des Spielcharakters / von Spielphasen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_1_1" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_1_1" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_1_1" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">1.2 Regelkonformität / Regelverstöße</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_1_2" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_1_2" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_1_2" value="3" required>
                                 <label>3</label>
                             </div>
@@ -468,30 +523,30 @@
                         <div class="criteria-header">2. Zweikampfbeurteilung</div>
                         <div class="criteria-item">
                             <div class="criteria-label">2.1 Fußvergehen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_2_1" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_2_1" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_2_1" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">2.2 Oberkörpervergehen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_2_2" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_2_2" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_2_2" value="3" required>
                                 <label>3</label>
                             </div>
@@ -503,45 +558,45 @@
                         <div class="criteria-header">3. Disziplinarkontrolle</div>
                         <div class="criteria-item">
                             <div class="criteria-label">3.1 Ansprachen / Ermahnungen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_3_1" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_3_1" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_3_1" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">3.2 Verwarnungen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_3_2" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_3_2" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_3_2" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">3.3 Feldverweise</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_3_3" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_3_3" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_3_3" value="3" required>
                                 <label>3</label>
                             </div>
@@ -553,60 +608,60 @@
                         <div class="criteria-header">4. Persönliches Auftreten</div>
                         <div class="criteria-item">
                             <div class="criteria-label">4.1 Akzeptanz / Persönlichkeit</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_4_1" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_4_1" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_4_1" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">4.2 Durchsetzungsvermögen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_4_2" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_4_2" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_4_2" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">4.3 Kommunikation (Ansprache, Dialog)</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_4_3" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_4_3" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_4_3" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">4.4 Präsentation (Gestik, Mimik, Pfiffe)</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_4_4" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_4_4" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_4_4" value="3" required>
                                 <label>3</label>
                             </div>
@@ -618,45 +673,45 @@
                         <div class="criteria-header">5. Fitness und Stellungsspiel</div>
                         <div class="criteria-item">
                             <div class="criteria-label">5.1 Laufvermögen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_5_1" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_5_1" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_5_1" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">5.2 Einblick und Positionierung laufendes Spiel</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_5_2" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_5_2" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_5_2" value="3" required>
                                 <label>3</label>
                             </div>
                         </div>
                         <div class="criteria-item">
                             <div class="criteria-label">5.3 Einblick und Positionierung Spielfortsetzungen</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_5_3" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_5_3" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_5_3" value="3" required>
                                 <label>3</label>
                             </div>
@@ -668,15 +723,15 @@
                         <div class="criteria-header">6. Teamarbeit</div>
                         <div class="criteria-item">
                             <div class="criteria-label">6.1 Zusammenarbeit</div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-1">
                                 <input type="radio" name="criteria_6_1" value="1" required>
                                 <label>1</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-2">
                                 <input type="radio" name="criteria_6_1" value="2" required>
                                 <label>2</label>
                             </div>
-                            <div class="radio-group">
+                            <div class="radio-group rating-3">
                                 <input type="radio" name="criteria_6_1" value="3" required>
                                 <label>3</label>
                             </div>
@@ -704,13 +759,6 @@
                 <!-- Beurteilung der Gesamtleistung -->
                 <div class="section">
                     <div class="section-title">Beurteilung der Gesamtleistung</div>
-                    
-                    <div class="summary-section">
-                        <div class="summary-label">Anzahl Bewertungen "1" (Optimierungsbedarf):</div>
-                        <div class="summary-input" id="count1">0</div>
-                        <div class="summary-label">Punkte (x1):</div>
-                        <div class="summary-input" id="points1">0</div>
-                    </div>
                     
                     <div class="summary-section">
                         <div class="summary-label">Anzahl Bewertungen "2" (Entspricht Anforderungen):</div>
@@ -852,82 +900,82 @@
         }
 
         async function submitForm(event) {
-    event.preventDefault();
-    
-    if (!isLoggedIn) {
-        alert('Sie müssen sich anmelden, um das Formular zu senden.');
-        return false;
-    }
-    
-    const form = document.getElementById('observationForm');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const btnText = document.getElementById('btnText');
-    const loadingSpinner = document.getElementById('loadingSpinner');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    
-    // Validate form
-    if (!validateForm(form)) {
-        return false;
-    }
-    
-    // Show loading state
-    downloadBtn.disabled = true;
-    btnText.textContent = 'PDF wird erstellt...';
-    loadingSpinner.classList.remove('hidden');
-    successMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
-    
-    try {
-        // Collect form data
-        const formData = collectFormData(form);
-        
-        // Try to call the Netlify function
-        const response = await fetch('/.netlify/functions/generate-pdf', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-        
-        if (response.ok) {
-            // Get HTML content and open in new window for printing
-            const htmlContent = await response.text();
+            event.preventDefault();
             
-            // Open new window with the HTML content
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(htmlContent);
-            printWindow.document.close();
+            if (!isLoggedIn) {
+                alert('Sie müssen sich anmelden, um das Formular zu senden.');
+                return false;
+            }
             
-            // Focus the new window (so print dialog appears there)
-            printWindow.focus();
+            const form = document.getElementById('observationForm');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const btnText = document.getElementById('btnText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
             
-            successMessage.textContent = 'PDF-Vorschau wurde in neuem Fenster geöffnet. Verwenden Sie dort "Als PDF drucken" oder Strg+P.';
-            successMessage.style.display = 'block';
-        } else {
-            throw new Error(`Function returned: ${response.status}`);
+            // Validate form
+            if (!validateForm(form)) {
+                return false;
+            }
+            
+            // Show loading state
+            downloadBtn.disabled = true;
+            btnText.textContent = 'PDF wird erstellt...';
+            loadingSpinner.classList.remove('hidden');
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // Collect form data
+                const formData = collectFormData(form);
+                
+                // Try to call the Netlify function
+                const response = await fetch('/.netlify/functions/generate-pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    // Get HTML content and open in new window for printing
+                    const htmlContent = await response.text();
+                    
+                    // Open new window with the HTML content
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(htmlContent);
+                    printWindow.document.close();
+                    
+                    // Focus the new window (so print dialog appears there)
+                    printWindow.focus();
+                    
+                    successMessage.textContent = 'PDF-Vorschau wurde in neuem Fenster geöffnet. Verwenden Sie dort "Als PDF drucken" oder Strg+P.';
+                    successMessage.style.display = 'block';
+                } else {
+                    throw new Error(`Function returned: ${response.status}`);
+                }
+                
+            } catch (error) {
+                console.error('PDF generation failed, using fallback:', error);
+                
+                // Fallback to simple text file
+                const fallbackData = collectFormData(form);
+                const pdfContent = generateSimplePDF(fallbackData);
+                downloadPDFContent(pdfContent, fallbackData);
+                
+                errorMessage.textContent = 'PDF-Generierung fehlgeschlagen, Text-Version wird heruntergeladen.';
+                errorMessage.style.display = 'block';
+            } finally {
+                // Reset button state
+                downloadBtn.disabled = false;
+                btnText.textContent = 'PDF herunterladen';
+                loadingSpinner.classList.add('hidden');
+            }
+            
+            return false;
         }
-        
-    } catch (error) {
-        console.error('PDF generation failed, using fallback:', error);
-        
-        // Fallback to simple text file
-        const fallbackData = collectFormData(form);
-        const pdfContent = generateSimplePDF(fallbackData);
-        downloadPDFContent(pdfContent, fallbackData);
-        
-        errorMessage.textContent = 'PDF-Generierung fehlgeschlagen, Text-Version wird heruntergeladen.';
-        errorMessage.style.display = 'block';
-    } finally {
-        // Reset button state
-        downloadBtn.disabled = false;
-        btnText.textContent = 'PDF herunterladen';
-        loadingSpinner.classList.add('hidden');
-    }
-    
-    return false;
-}
 
         function generateSimplePDF(data) {
             const criteriaLabels = {
@@ -1107,4 +1155,11 @@ Erstellt am: ${new Date().toLocaleDateString('de-DE')} um ${new Date().toLocaleT
         });
     </script>
 </body>
-</html>
+</html>="summary-label">Anzahl Bewertungen "1" (Optimierungsbedarf):</div>
+                        <div class="summary-input" id="count1">0</div>
+                        <div class="summary-label">Punkte (x1):</div>
+                        <div class="summary-input" id="points1">0</div>
+                    </div>
+                    
+                    <div class="summary-section">
+                        <div class
