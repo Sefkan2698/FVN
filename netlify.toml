@@ -1,0 +1,20 @@
+# netlify.toml
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[functions]
+  # Extend timeout for PDF generation
+  "generate-pdf" = { timeout = 30 }
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "POST, OPTIONS"
+
+# Environment variables (set these in Netlify dashboard)
+# EMAIL_USER = your-email@gmail.com
+# EMAIL_PASS = your-app-password
+# RECIPIENT_EMAIL = can.guezel@fvn.de

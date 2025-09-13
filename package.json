@@ -1,0 +1,18 @@
+{
+  "name": "fvn-beobachtungsbogen",
+  "version": "1.0.0",
+  "description": "FVN Schiedsrichter Beobachtungsbogen mit PDF-Generierung",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site, no build needed'"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "nodemailer": "^6.9.0",
+    "@netlify/functions": "^2.0.0"
+  },
+  "devDependencies": {},
+  "keywords": ["netlify", "pdf", "form", "football", "referee"],
+  "author": "FVN",
+  "license": "MIT"
+}
