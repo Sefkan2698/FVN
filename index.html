@@ -852,57 +852,80 @@
         }
 
         async function submitForm(event) {
-            event.preventDefault();
+    event.preventDefault();
+    
+    if (!isLoggedIn) {
+        alert('Sie müssen sich anmelden, um das Formular zu senden.');
+        return false;
+    }
+    
+    const form = document.getElementById('observationForm');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Validate form
+    if (!validateForm(form)) {
+        return false;
+    }
+    
+    // Show loading state
+    downloadBtn.disabled = true;
+    btnText.textContent = 'PDF wird erstellt...';
+    loadingSpinner.classList.remove('hidden');
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    try {
+        // Collect form data
+        const formData = collectFormData(form);
+        
+        // Try to call the Netlify function
+        const response = await fetch('/.netlify/functions/generate-pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+            // PDF generated successfully
+            const pdfBlob = await response.blob();
+            const url = window.URL.createObjectURL(pdfBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Beobachtungsbogen_${formData.date || 'unbekannt'}_${formData.referee?.replace(/\s+/g, '_') || 'unbekannt'}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
             
-            if (!isLoggedIn) {
-                alert('Sie müssen sich anmelden, um das Formular zu senden.');
-                return false;
-            }
-            
-            const form = document.getElementById('observationForm');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const btnText = document.getElementById('btnText');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            
-            // Validate form
-            if (!validateForm(form)) {
-                return false;
-            }
-            
-            // Show loading state
-            downloadBtn.disabled = true;
-            btnText.textContent = 'PDF wird erstellt...';
-            loadingSpinner.classList.remove('hidden');
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            
-            try {
-                // Collect form data
-                const formData = collectFormData(form);
-                
-                // Since we can't use the Netlify function in this environment,
-                // we'll create a simple PDF-like document download
-                const pdfContent = generateSimplePDF(formData);
-                downloadPDFContent(pdfContent, formData);
-                
-                // Show success message
-                successMessage.style.display = 'block';
-                
-            } catch (error) {
-                console.error('Error:', error);
-                errorMessage.textContent = 'Fehler beim Erstellen der PDF: ' + error.message;
-                errorMessage.style.display = 'block';
-            } finally {
-                // Reset button state
-                downloadBtn.disabled = false;
-                btnText.textContent = 'PDF herunterladen';
-                loadingSpinner.classList.add('hidden');
-            }
-            
-            return false;
+            successMessage.style.display = 'block';
+        } else {
+            throw new Error(`Function returned: ${response.status}`);
         }
+        
+    } catch (error) {
+        console.error('PDF generation failed, using fallback:', error);
+        
+        // Fallback to simple text file
+        const pdfContent = generateSimplePDF(formData);
+        downloadPDFContent(pdfContent, formData);
+        
+        errorMessage.textContent = 'PDF-Generierung fehlgeschlagen, Text-Version wird heruntergeladen.';
+        errorMessage.style.display = 'block';
+    } finally {
+        // Reset button state
+        downloadBtn.disabled = false;
+        btnText.textContent = 'PDF herunterladen';
+        loadingSpinner.classList.add('hidden');
+    }
+    
+    return false;
+}
 
         function generateSimplePDF(data) {
             const criteriaLabels = {
