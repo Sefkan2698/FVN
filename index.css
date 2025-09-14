@@ -670,6 +670,8 @@
     color: #0066cc;
 }
 
+
+
 .summary-input {
     text-align: center;
     padding: 8px;
@@ -799,5 +801,326 @@
     input, textarea, select {
         border: 1px solid #000 !important;
         background: white !important;
+    }
+}
+
+/* =============== RESPONSIVE DESIGN - IMPROVED =============== */
+
+/* Desktop - Original Layout beibehalten */
+.criteria-radio-container {
+    display: contents; /* Macht den Container unsichtbar auf Desktop */
+}
+
+/* Tablet Styles (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* Criteria Items bleiben im Grid-Layout */
+    .criteria-item {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .criteria-radio-container {
+        display: contents; /* Bleibt Grid auf Tablet */
+    }
+    
+    .radio-group {
+        padding: 8px;
+    }
+    
+    .penalties-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+/* Mobile Styles (bis 768px) - Hier wird das Layout geändert */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 10px;
+        margin: 0;
+    }
+    
+    /* Header anpassen */
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .header-text {
+        font-size: 16px;
+    }
+    
+    .logo {
+        height: 50px;
+        width: 50px;
+        font-size: 18px;
+    }
+    
+    /* Selection Screen */
+    .form-options {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .selection-title {
+        font-size: 20px;
+    }
+    
+    /* Form Elements */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .form-group label {
+        min-width: auto;
+        margin-bottom: 5px;
+        margin-right: 0;
+    }
+    
+    /* HIER ist der wichtige Teil - Criteria Items für Mobile umstellen */
+    .criteria-item {
+        grid-template-columns: 1fr; /* Nur eine Spalte */
+        gap: 10px;
+        padding: 15px 0;
+        border-bottom: 2px solid #eee;
+    }
+    
+    .criteria-label {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    /* Radio Container wird zu Flexbox auf Mobile */
+    .criteria-radio-container {
+        display: flex !important; /* Überschreibt 'contents' */
+        justify-content: space-between;
+        gap: 8px;
+    }
+    
+    .radio-group {
+        flex: 1;
+        padding: 12px 8px;
+        min-height: 50px;
+    }
+    
+    .radio-group input[type="radio"] {
+        transform: scale(1.5);
+    }
+    
+    .radio-group label {
+        font-size: 18px;
+    }
+    
+    /* Rest des Mobile CSS... */
+    .penalties-section {
+        padding: 15px;
+    }
+    
+    .penalties-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .penalties-label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #0066cc;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+    
+    .card-group {
+        justify-content: space-between;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+    }
+    
+    .team-penalties {
+        justify-content: space-around;
+        margin-top: 10px;
+    }
+    
+    .summary-table {
+        font-size: 14px;
+    }
+    
+    .summary-header {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .summary-row {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        padding: 8px;
+        font-size: 13px;
+    }
+    
+    .summary-total {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    
+    .text-area-group textarea {
+        min-height: 80px;
+        font-size: 16px;
+    }
+    
+    .email-form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .submit-section {
+        padding: 15px;
+    }
+    
+    .submit-button, .back-button {
+        width: 100%;
+        margin: 5px 0;
+        padding: 15px;
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 16px;
+        padding: 8px;
+    }
+    
+    .criteria-header {
+        font-size: 14px;
+        padding: 6px;
+    }
+}
+
+/* Sehr kleine Handys (bis 480px) */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+    
+    .header-text {
+        font-size: 14px;
+    }
+    
+    .selection-title {
+        font-size: 18px;
+    }
+    
+    .form-option {
+        padding: 20px 15px;
+    }
+    
+    .radio-group {
+        padding: 10px 6px;
+        min-height: 45px;
+    }
+    
+    .radio-group label {
+        font-size: 16px;
+    }
+    
+    .penalties-section {
+        padding: 10px;
+    }
+    
+    .summary-header, .summary-row {
+        font-size: 11px;
+        padding: 6px;
+    }
+    
+    .criteria-label {
+        font-size: 13px;
+    }
+}
+
+/* Touch-Optimierungen */
+@media (hover: none) and (pointer: coarse) {
+    .radio-group {
+        min-height: 50px;
+        padding: 12px;
+    }
+    
+    .form-option {
+        padding: 25px 20px;
+    }
+    
+    input, textarea, select {
+        font-size: 16px;
+        padding: 12px;
+    }
+    
+    .submit-button, .back-button {
+        min-height: 50px;
+    }
+}
+
+/* Top Navigation */
+.top-navigation {
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.top-navigation .back-button {
+    background: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.top-navigation .back-button:hover {
+    background: #5a6268;
+}
+
+/* Mobile Anpassung für Top Navigation */
+@media screen and (max-width: 768px) {
+    .top-navigation {
+        margin-bottom: 15px;
+        padding: 8px 0;
+    }
+    
+    .top-navigation .back-button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+/* Print - Top Navigation ausblenden */
+@media print {
+    .top-navigation {
+        display: none !important;
     }
 }
