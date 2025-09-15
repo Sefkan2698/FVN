@@ -1156,3 +1156,88 @@
         padding: 4px 6px;
     }
 }
+.email-title {
+  background: #0066cc;
+  color: white;
+  padding: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 5px;
+}
+
+.email-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.email-table th,
+.email-table td {
+  border: 1px solid #dee2e6;
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.email-table th {
+  background-color: #f8f9fa;
+}
+/* ===== Mobile: E-Mail oben, Name darunter (<=768px) ===== */
+@media (max-width: 768px) {
+  .email-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+  }
+
+  /* Kopf ausblenden */
+  .email-table thead { display: none; }
+
+  /* Jede Tabellenzeile wird ein "Card"-Block */
+  .email-table tr {
+    display: block;
+    margin: 12px 0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* Zellen gestapelt: erst E-Mail, dann Name */
+  .email-table td {
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 10px 12px;
+    line-height: 1.35;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Trennlinie zwischen E-Mail (oben) und Name (unten) */
+  .email-table td + td {
+    border-top: 1px solid #edf0f2;
+  }
+
+  /* Labels voranstellen */
+  .email-table td:nth-child(1)::before { content: "E-Mail"; }
+  .email-table td:nth-child(2)::before { content: "Name"; }
+
+  .email-table td::before {
+    display: block;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  /* Typo etwas kompakter */
+  .email-table td:nth-child(1) { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .email-table td { font-size: 13px; }
+
+  /* Sicherheitsnetz: nie über Container hinausragen */
+  .email-info { overflow-x: hidden; }
+}
+
