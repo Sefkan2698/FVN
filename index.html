@@ -489,21 +489,35 @@
     </div>
 </div>
             <!-- Versand der Bögen als PDF -->
-<div class="section">
-    <div class="section-title">Versand der Bögen als PDF an:</div>
-    
-    
+  <div class="section">
+        <div class="section-title">Versand der Bögen als PDF an:</div>
         
-        <div class="email-form-row">
-            <div class="email-form-group">
-                <label for="recipient_email">E-Mail Adresse des Empfängers:</label>
-                <input type="email" id="recipient_email" name="recipient_email" required placeholder="E-Mail eingeben...">
+        <div class="email-section">
+            <div class="email-info">
+                <table class="email-table">
+                    <thead>
+                        <tr>
+                            <th>Beobachtungsbogen</th>
+                            <th>E-Mail</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A-Junioren</td>
+                            <td type="email" name="a_junioren_email" class="table-input">ralph.van.hoof@fvn.de</td>
+                            <td type="text" name="a_junioren_name" class="table-input">Ralph van Hoof</td>
+                        </tr>
+                        <tr>
+                            <td>B-Junioren</td>
+                            <td type="email" name="b_junioren_email" class="table-input">floriankoetter@aol.com</td>
+                            <td type="text" name="b_junioren_name" class="table-input" >Florian Kötter</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
-            <div class="email-form-group">
-                <label for="recipient_name">Name des Empfängers:</label>
-                <input type="text" id="recipient_name" name="recipient_name" required placeholder="Name eingeben...">
-            </div>
+            
         </div>
     </div>
 </div>
@@ -734,68 +748,40 @@
             </div>
             <!-- Beurteilung der Gesamtleistung -->
 <!-- Beurteilung der Gesamtleistung -->
-<div class="section">
-    <div class="section-title">Beurteilung der Gesamtleistung</div>
-    
-    <div class="summary-table">
-        <div class="summary-header">
-            <div>Bewertung</div>
-            <div>Anzahl</div>
-            <div>Multiplikator</div>
-            <div>Punkte</div>
-        </div>
-        
-        <div class="summary-row rating-1-bg">
-            <div class="rating-description">
-                <strong>1</strong> - Optimierungsbedarf
-            </div>
-            <div class="summary-input" id="scout_count1">0</div>
-            <div class="summary-multiplier">× 1 =</div>
-            <div class="summary-input" id="scout_points1">0</div>
-        </div>
-        
-        <div class="summary-row rating-2-bg">
-            <div class="rating-description">
-                <strong>2</strong> - Entspricht Anforderungen
-            </div>
-            <div class="summary-input" id="scout_count2">0</div>
-            <div class="summary-multiplier">× 2 =</div>
-            <div class="summary-input" id="scout_points2">0</div>
-        </div>
-        
-        <div class="summary-row rating-3-bg">
-            <div class="rating-description">
-                <strong>3</strong> - Überdurchschnittlich
-            </div>
-            <div class="summary-input" id="scout_count3">0</div>
-            <div class="summary-multiplier">× 3 =</div>
-            <div class="summary-input" id="scout_points3">0</div>
-        </div>
-        
-        <div class="summary-total">
-            <div class="total-label"><strong>Gesamtpunktzahl:</strong></div>
-            <div></div>
-            <div></div>
-            <div class="total-points" id="scout_totalPoints"><strong>0</strong></div>
-        </div>
-    </div>
-</div>
+
  <!-- Versand der Bögen als PDF -->
-<div class="section">
-    <div class="section-title">Versand der Bögen als PDF an:</div>
-    
-    <div class="email-form-row">
-        <div class="email-form-group">
-            <label for="scout_recipient_email">E-Mail Adresse des Empfängers:</label>
-            <input type="email" id="scout_recipient_email" name="recipient_email" required placeholder="E-Mail eingeben...">
-        </div>
+<!-- Versand der Bögen als PDF -->
+    <div class="section">
+        <div class="section-title">Versand der Bögen als PDF an:</div>
         
-        <div class="email-form-group">
-            <label for="scout_recipient_name">Name des Empfängers:</label>
-            <input type="text" id="scout_recipient_name" name="recipient_name" required placeholder="Name eingeben...">
+        <div class="email-section">
+            <div class="email-info">
+                <table class="email-table">
+                    <thead>
+                        <tr>
+                            <th>Beobachtungsbogen</th>
+                            <th>E-Mail</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A-Junioren</td>
+                            <td type="email" name="a_junioren_email" class="table-input">ralph.van.hoof@fvn.de</td>
+                            <td type="text" name="a_junioren_name" class="table-input">Ralph van Hoof</td>
+                        </tr>
+                        <tr>
+                            <td>B-Junioren</td>
+                            <td type="email" name="b_junioren_email" class="table-input">floriankoetter@aol.com</td>
+                            <td type="text" name="b_junioren_name" class="table-input" >Florian Kötter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
         </div>
     </div>
-</div>
             <!-- Submit Section -->
             <div class="submit-section">
                 <button type="button" class="back-button" onclick="showSelection()">Zurück zur Auswahl</button>

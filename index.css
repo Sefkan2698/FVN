@@ -1124,3 +1124,35 @@
         display: none !important;
     }
 }
+
+/* Email Table Responsive */
+@media screen and (max-width: 768px) {
+    .email-table {
+        font-size: 14px;
+    }
+    
+    .email-table th,
+    .email-table td {
+        padding: 6px 8px;
+    }
+    
+    .table-input {
+        font-size: 14px;
+        padding: 4px;
+    }
+    
+    .email-section {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .email-table {
+        font-size: 12px;
+    }
+    
+    .email-table th,
+    .email-table td {
+        padding: 4px 6px;
+    }
+}
