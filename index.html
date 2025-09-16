@@ -653,7 +653,7 @@
     <div class="criteria-section">
         <div class="criteria-header">1. Spielverständnis</div>
         <div class="criteria-item">
-            <div class="criteria-label">Spielverständnis</div>
+            <div class="criteria-label"> </div>
             <div class="criteria-radio-container">
                 <div class="radio-group rating-1">
                     <input type="radio" name="scout_criteria_1" value="1" required>
@@ -675,7 +675,7 @@
     <div class="criteria-section">
         <div class="criteria-header">2. Zweikampfbeurteilung</div>
         <div class="criteria-item">
-            <div class="criteria-label">Zweikampfbeurteilung</div>
+            <div class="criteria-label"> </div>
             <div class="criteria-radio-container">
                 <div class="radio-group rating-1">
                     <input type="radio" name="scout_criteria_2" value="1" required>
@@ -697,7 +697,7 @@
     <div class="criteria-section">
         <div class="criteria-header">3. Disziplinarkontrolle</div>
         <div class="criteria-item">
-            <div class="criteria-label">Disziplinarkontrolle</div>
+            <div class="criteria-label"> </div>
             <div class="criteria-radio-container">
                 <div class="radio-group rating-1">
                     <input type="radio" name="scout_criteria_3" value="1" required>
@@ -719,7 +719,7 @@
     <div class="criteria-section">
         <div class="criteria-header">4. Persönliches Auftreten</div>
         <div class="criteria-item">
-            <div class="criteria-label">Persönliches Auftreten</div>
+            <div class="criteria-label"> </div>
             <div class="criteria-radio-container">
                 <div class="radio-group rating-1">
                     <input type="radio" name="scout_criteria_4" value="1" required>
@@ -741,7 +741,7 @@
     <div class="criteria-section">
         <div class="criteria-header">5. Fitness und Stellungsspiel</div>
         <div class="criteria-item">
-            <div class="criteria-label">Fitness und Stellungsspiel</div>
+            <div class="criteria-label"> </div>
             <div class="criteria-radio-container">
                 <div class="radio-group rating-1">
                     <input type="radio" name="scout_criteria_5" value="1" required>
@@ -763,7 +763,7 @@
     <div class="criteria-section">
         <div class="criteria-header">6. Teamarbeit</div>
         <div class="criteria-item">
-            <div class="criteria-label">Teamarbeit</div>
+                    <div class="criteria-label"> </div>
             <div class="criteria-radio-container">
                 <div class="radio-group rating-1">
                     <input type="radio" name="scout_criteria_6" value="1" required>
@@ -781,6 +781,65 @@
         </div>
     </div>
 </div>
+
+<!-- POSITION: Diese Bereiche in index.html im Scoutingbogen NACH dem Ende von </div> der Scoutingkriterien und VOR dem "Kurzes Fazit"-Bereich einfügen -->
+<div class="section">
+    <div class="section-title">Erläuterung der Schiedsrichterleistung</div>
+    
+    <div class="text-areas-section">
+        <div class="text-area-group">
+            <label>Positive Erkenntnisse:</label>
+            <textarea name="positive_notes" placeholder="Beschreiben Sie positive Aspekte der Schiedsrichterleistung..."></textarea>
+        </div>
+        
+        <div class="text-area-group">
+            <label>Zu optimierende Bereiche:</label>
+            <textarea name="improvement_notes" placeholder="Beschreiben Sie Bereiche, die optimiert werden können..."></textarea>
+        </div>
+    </div>
+</div>
+<!-- Beurteilung der Gesamtleistung - NACH den Scoutingkriterien einfügen -->
+<div class="section">
+    <div class="section-title">Beurteilung der Gesamtleistung</div>
+    <div class="explanation">
+        <p><strong>(Nur eine der drei Möglichkeiten wählen)</strong></p>
+    </div>
+    
+    <div class="criteria-section">
+        <div class="criteria-item">
+            <div class="criteria-label" style="color: #28a745; font-weight: bold;">Empfehlung für weitere Fördermaßnahmen</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-3" style="background-color: #e8f5e8; border-color: #28a745;">
+                    <input type="radio" name="overall_recommendation" value="promotion" required>
+                    <label style="color: #28a745;">✓</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="criteria-item">
+            <div class="criteria-label" style="color: #ffc107; font-weight: bold;">Weitere Beobachtungen notwendig</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-2" style="background-color: #fff3e0; border-color: #ffc107;">
+                    <input type="radio" name="overall_recommendation" value="observation" required>
+                    <label style="color: #ffc107;">✓</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="criteria-item">
+            <div class="criteria-label" style="color: #dc3545; font-weight: bold;">Weiterentwicklung abwarten</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1" style="background-color: #ffebee; border-color: #dc3545;">
+                    <input type="radio" name="overall_recommendation" value="wait" required>
+                    <label style="color: #dc3545;">✓</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Erläuterung der Schiedsrichterleistung - NACH der Gesamtbeurteilung einfügen -->
+
 
             <!-- Submit Section -->
             <div class="submit-section">
