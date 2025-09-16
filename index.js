@@ -87,12 +87,6 @@ function initializeScoutingForm() {
         input.addEventListener('input', validateScoreFormat);
     });
 
-    // Add event listeners for score calculation
-    const criteriaRadios = document.querySelectorAll('#scoutingForm input[type="radio"][name^="scout_criteria_"]');
-    criteriaRadios.forEach(radio => {
-        radio.addEventListener('change', calculateScoutingScores);
-    });
-
     // Add criteria change listeners for comments
     addCriteriaListeners('scoutingForm');
 }
@@ -231,32 +225,6 @@ function calculateBeobachtungsScores() {
     document.getElementById('totalPoints').innerHTML = `<strong>${totalPoints}</strong>`;
 }
 
-function calculateScoutingScores() {
-    const criteriaRadios = document.querySelectorAll('#scoutingForm input[type="radio"][name^="scout_criteria_"]:checked');
-    let counts = { '1': 0, '2': 0, '3': 0 };
-    
-    criteriaRadios.forEach(radio => {
-        counts[radio.value]++;
-    });
-    
-    // Update counts mit den korrekten Scout-IDs
-    document.getElementById('scout_count1').textContent = counts['1'];
-    document.getElementById('scout_count2').textContent = counts['2'];
-    document.getElementById('scout_count3').textContent = counts['3'];
-    
-    // Calculate weighted scores
-    const points1 = counts['1'] * 1;
-    const points2 = counts['2'] * 2;
-    const points3 = counts['3'] * 3;
-    
-    document.getElementById('scout_points1').textContent = points1;
-    document.getElementById('scout_points2').textContent = points2;
-    document.getElementById('scout_points3').textContent = points3;
-    
-    const totalPoints = points1 + points2 + points3;
-    document.getElementById('scout_totalPoints').innerHTML = `<strong>${totalPoints}</strong>`;
-}
-
 // Submit Functions
 function submitBeobachtungsForm(event) {
     event.preventDefault();
@@ -267,11 +235,14 @@ function submitBeobachtungsForm(event) {
         return false;
     }
     
-    // PDF generieren via Browser Print
-    generatePDF();
-    
+    // Erfolgstext anzeigen
     document.getElementById('successMessage').textContent = 'PDF wird erstellt...';
     document.getElementById('successMessage').style.display = 'block';
+    
+    // PDF generieren
+    setTimeout(() => {
+        generatePDF('beobachtung');
+    }, 500);
     
     return false;
 }
@@ -285,35 +256,157 @@ function submitScoutingForm(event) {
         return false;
     }
     
-    // PDF generieren via Browser Print
-    generatePDF();
-    
+    // Erfolgstext anzeigen
     document.getElementById('scoutSuccessMessage').textContent = 'PDF wird erstellt...';
     document.getElementById('scoutSuccessMessage').style.display = 'block';
+    
+    // PDF generieren
+    setTimeout(() => {
+        generatePDF('scouting');
+    }, 500);
     
     return false;
 }
 
-function generatePDF() {
-    // Vor dem Drucken: Navigation und unnötige Elemente ausblenden
-    const backButtons = document.querySelectorAll('.back-button');
-    const submitButtons = document.querySelectorAll('.submit-button');
-    const successMessages = document.querySelectorAll('.success-message');
+// PDF Generation Function
+function generatePDF(formType) {
+    console.log('generatePDF aufgerufen mit:', formType);
     
-    // Elemente ausblenden
-    backButtons.forEach(btn => btn.style.display = 'none');
-    submitButtons.forEach(btn => btn.style.display = 'none');
-    successMessages.forEach(msg => msg.style.display = 'none');
+    const elementToCapture = formType === 'beobachtung' ? 
+        document.getElementById('beobachtungsForm') : 
+        document.getElementById('scoutingForm');
     
-    // Print Dialog öffnen
-    window.print();
+    if (!elementToCapture) {
+        console.error('Formular-Element nicht gefunden!');
+        return;
+    }
     
-    // Nach dem Drucken: Elemente wieder einblenden
-    setTimeout(() => {
-        backButtons.forEach(btn => btn.style.display = '');
-        submitButtons.forEach(btn => btn.style.display = '');
-        successMessages.forEach(msg => msg.style.display = '');
-    }, 1000);
+    // Elemente für PDF ausblenden
+    const submitSection = elementToCapture.querySelector('.submit-section');
+    const topNav = elementToCapture.querySelector('.top-navigation');
+    
+    if (submitSection) submitSection.style.display = 'none';
+    if (topNav) topNav.style.display = 'none';
+    
+    // CSS von der Seite sammeln
+    const cssContent = getAllCSS();
+    
+    // HTML Content erstellen
+    const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="de">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>FVN ${formType === 'beobachtung' ? 'Beobachtungsbogen' : 'Scoutingbogen'}</title>
+            <style>
+                ${cssContent}
+                
+                /* PDF-spezifische Styles */
+                .submit-section, .top-navigation {
+                    display: none !important;
+                }
+                
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+                
+                .container {
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 10px;
+                }
+                
+                /* Textareas für PDF optimieren */
+                textarea {
+                    min-height: 60px;
+                    height: auto;
+                    overflow: visible;
+                    resize: none;
+                    white-space: pre-wrap;
+                    word-wrap: break-word;
+                }
+            </style>
+        </head>
+        <body>
+            ${elementToCapture.outerHTML}
+        </body>
+        </html>
+    `;
+    
+    const filename = `${formType}sbogen_${new Date().toISOString().split('T')[0]}.pdf`;
+    
+    // An Netlify Function senden
+    fetch('/.netlify/functions/generate-pdf', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            htmlContent: htmlContent,
+            filename: filename
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        // PDF Download
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        console.log('PDF erfolgreich heruntergeladen');
+    })
+    .catch(error => {
+        console.error('Fehler beim Erstellen der PDF:', error);
+        alert('Fehler beim Erstellen der PDF: ' + error.message);
+    })
+    .finally(() => {
+        // Elemente wieder einblenden
+        if (submitSection) submitSection.style.display = '';
+        if (topNav) topNav.style.display = '';
+        
+        // Success message ausblenden
+        setTimeout(() => {
+            if (formType === 'beobachtung') {
+                document.getElementById('successMessage').style.display = 'none';
+            } else {
+                document.getElementById('scoutSuccessMessage').style.display = 'none';
+            }
+        }, 2000);
+    });
+}
+
+// Hilfsfunktion um alle CSS-Regeln zu sammeln
+function getAllCSS() {
+    let css = '';
+    
+    // CSS aus den Stylesheets sammeln
+    for (let i = 0; i < document.styleSheets.length; i++) {
+        try {
+            const sheet = document.styleSheets[i];
+            if (sheet.cssRules) {
+                for (let j = 0; j < sheet.cssRules.length; j++) {
+                    css += sheet.cssRules[j].cssText + '\n';
+                }
+            }
+        } catch (e) {
+            console.warn('Could not access stylesheet:', e);
+        }
+    }
+    
+    return css;
 }
 
 // Comment Field Functions

@@ -7,6 +7,7 @@
    <link rel="stylesheet" href="index.css">
   
 </head>
+
 <body>
     <!-- Selection Screen -->
     <div id="selectionScreen" class="container">
@@ -543,9 +544,7 @@
 
 
     </div>
-</div>
-            
-            <!-- Submit Section -->
+                <!-- Submit Section -->
             <div class="submit-section">
                 <button type="button" class="back-button" onclick="showSelection()">Zurück zur Auswahl</button>
                 <button type="submit" class="submit-button">PDF herunterladen</button>
@@ -553,12 +552,14 @@
             </div>
         </form>
     </div>
+</div>
+            
+
     
     <!-- Scouting Form -->
     <div id="scoutingForm" class="container hidden">
         <div class="header">
             <div class="top-navigation">
-    <button type="button" class="back-button" onclick="showSelection()">← Zurück zur Auswahl</button>
 </div>
            <img src="assets/fvn-logo.png" alt="FVN Logo" class="logo">
             <div class="header-text">
@@ -642,173 +643,141 @@
             
             <!-- Scoutingkriterien -->
             <!-- Scoutingkriterien -->
+<!-- Ersetze die komplette Scoutingkriterien-Section in deiner index.html: -->
+
+<!-- Scoutingkriterien -->
 <div class="section">
-    <div class="section-title">Scoutingkriterium</div>
+    <div class="section-title">Scoutingkriterien</div>
     
+    <!-- 1. Spielverständnis -->
     <div class="criteria-section">
-    <div class="criteria-item">
-        <div class="criteria-label">Spielverständnis</div>
-        <div class="criteria-radio-container">
-            <div class="radio-group rating-1">
-                <input type="radio" name="scout_criteria_1" value="1" required>
-                <label>1</label>
-            </div>
-            <div class="radio-group rating-2">
-                <input type="radio" name="scout_criteria_1" value="2" required>
-                <label>2</label>
-            </div>
-            <div class="radio-group rating-3">
-                <input type="radio" name="scout_criteria_1" value="3" required>
-                <label>3</label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="criteria-item">
-        <div class="criteria-label">Zweikampfbeurteilung</div>
-        <div class="criteria-radio-container">
-            <div class="radio-group rating-1">
-                <input type="radio" name="scout_criteria_2" value="1" required>
-                <label>1</label>
-            </div>
-            <div class="radio-group rating-2">
-                <input type="radio" name="scout_criteria_2" value="2" required>
-                <label>2</label>
-            </div>
-            <div class="radio-group rating-3">
-                <input type="radio" name="scout_criteria_2" value="3" required>
-                <label>3</label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="criteria-item">
-        <div class="criteria-label">Disziplinarkontrolle</div>
-        <div class="criteria-radio-container">
-            <div class="radio-group rating-1">
-                <input type="radio" name="scout_criteria_3" value="1" required>
-                <label>1</label>
-            </div>
-            <div class="radio-group rating-2">
-                <input type="radio" name="scout_criteria_3" value="2" required>
-                <label>2</label>
-            </div>
-            <div class="radio-group rating-3">
-                <input type="radio" name="scout_criteria_3" value="3" required>
-                <label>3</label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="criteria-item">
-        <div class="criteria-label">Persönliches Auftreten</div>
-        <div class="criteria-radio-container">
-            <div class="radio-group rating-1">
-                <input type="radio" name="scout_criteria_4" value="1" required>
-                <label>1</label>
-            </div>
-            <div class="radio-group rating-2">
-                <input type="radio" name="scout_criteria_4" value="2" required>
-                <label>2</label>
-            </div>
-            <div class="radio-group rating-3">
-                <input type="radio" name="scout_criteria_4" value="3" required>
-                <label>3</label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="criteria-item">
-        <div class="criteria-label">Fitness und Stellungsspiel</div>
-        <div class="criteria-radio-container">
-            <div class="radio-group rating-1">
-                <input type="radio" name="scout_criteria_5" value="1" required>
-                <label>1</label>
-            </div>
-            <div class="radio-group rating-2">
-                <input type="radio" name="scout_criteria_5" value="2" required>
-                <label>2</label>
-            </div>
-            <div class="radio-group rating-3">
-                <input type="radio" name="scout_criteria_5" value="3" required>
-                <label>3</label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="criteria-item">
-        <div class="criteria-label">Teamarbeit</div>
-        <div class="criteria-radio-container">
-            <div class="radio-group rating-1">
-                <input type="radio" name="scout_criteria_6" value="1" required>
-                <label>1</label>
-            </div>
-            <div class="radio-group rating-2">
-                <input type="radio" name="scout_criteria_6" value="2" required>
-                <label>2</label>
-            </div>
-            <div class="radio-group rating-3">
-                <input type="radio" name="scout_criteria_6" value="3" required>
-                <label>3</label>
-            </div>
-        </div>
-    </div>
-</div>
-            <div class="section">
-                <div class="section-title">Kurzes Fazit zur Schiedsrichterleistung</div>
-                
-                <div class="text-areas-section">
-                    <div class="text-area-group">
-                        <label>Positive Erkenntnisse:</label>
-                        <textarea name="positive_notes" placeholder="Beschreiben Sie positive Aspekte..."></textarea>
-                    </div>
-                    
-                    <div class="text-area-group">
-                        <label>Zu optimierende Bereiche:</label>
-                        <textarea name="improvement_notes" placeholder="Beschreiben Sie Bereiche, die optimiert werden können..."></textarea>
-                    </div>
+        <div class="criteria-header">1. Spielverständnis</div>
+        <div class="criteria-item">
+            <div class="criteria-label">Spielverständnis</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1">
+                    <input type="radio" name="scout_criteria_1" value="1" required>
+                    <label>1</label>
+                </div>
+                <div class="radio-group rating-2">
+                    <input type="radio" name="scout_criteria_1" value="2" required>
+                    <label>2</label>
+                </div>
+                <div class="radio-group rating-3">
+                    <input type="radio" name="scout_criteria_1" value="3" required>
+                    <label>3</label>
                 </div>
             </div>
-            <!-- Beurteilung der Gesamtleistung -->
-<!-- Versand -->
-<div class="section">
-    <div class="section-title">Versand:</div>
-    
-    <div class="email-section">
-        <div class="email-info">
-            <table class="email-table">
-                <thead>
-                    <tr>
-                        <th>Typ</th>
-                        <th>E-Mail</th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Hauptempfänger -->
-                    <tr>
-                        <td>To</td>
-                        <td class="table-input">ertuerk.himmet@fvn.de</td>
-                        <td class="table-input">Ertuerk Himmet</td>
-                    </tr>
-                    <!-- CC -->
-                    <tr>
-                        <td>CC</td>
-                        <td class="table-input">can.guezel@fvn.de</td>
-                        <td class="table-input">Can Güzel</td>
-                    </tr>
-                    <tr>
-                        <td>CC</td>
-                        <td class="table-input">ralph.van.hoof@fvn.de</td>
-                        <td class="table-input">Ralph van Hoof</td>
-                    </tr>
-                    <tr>
-                        <td>CC</td>
-                        <td class="table-input">ralf.wermelinghoff@fvn.de</td>
-                        <td class="table-input">Ralf Wermelinghoff</td>
-                    </tr>
-                </tbody>
-            </table>
+        </div>
+    </div>
+
+    <!-- 2. Zweikampfbeurteilung -->
+    <div class="criteria-section">
+        <div class="criteria-header">2. Zweikampfbeurteilung</div>
+        <div class="criteria-item">
+            <div class="criteria-label">Zweikampfbeurteilung</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1">
+                    <input type="radio" name="scout_criteria_2" value="1" required>
+                    <label>1</label>
+                </div>
+                <div class="radio-group rating-2">
+                    <input type="radio" name="scout_criteria_2" value="2" required>
+                    <label>2</label>
+                </div>
+                <div class="radio-group rating-3">
+                    <input type="radio" name="scout_criteria_2" value="3" required>
+                    <label>3</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Disziplinarkontrolle -->
+    <div class="criteria-section">
+        <div class="criteria-header">3. Disziplinarkontrolle</div>
+        <div class="criteria-item">
+            <div class="criteria-label">Disziplinarkontrolle</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1">
+                    <input type="radio" name="scout_criteria_3" value="1" required>
+                    <label>1</label>
+                </div>
+                <div class="radio-group rating-2">
+                    <input type="radio" name="scout_criteria_3" value="2" required>
+                    <label>2</label>
+                </div>
+                <div class="radio-group rating-3">
+                    <input type="radio" name="scout_criteria_3" value="3" required>
+                    <label>3</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Persönliches Auftreten -->
+    <div class="criteria-section">
+        <div class="criteria-header">4. Persönliches Auftreten</div>
+        <div class="criteria-item">
+            <div class="criteria-label">Persönliches Auftreten</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1">
+                    <input type="radio" name="scout_criteria_4" value="1" required>
+                    <label>1</label>
+                </div>
+                <div class="radio-group rating-2">
+                    <input type="radio" name="scout_criteria_4" value="2" required>
+                    <label>2</label>
+                </div>
+                <div class="radio-group rating-3">
+                    <input type="radio" name="scout_criteria_4" value="3" required>
+                    <label>3</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Fitness und Stellungsspiel -->
+    <div class="criteria-section">
+        <div class="criteria-header">5. Fitness und Stellungsspiel</div>
+        <div class="criteria-item">
+            <div class="criteria-label">Fitness und Stellungsspiel</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1">
+                    <input type="radio" name="scout_criteria_5" value="1" required>
+                    <label>1</label>
+                </div>
+                <div class="radio-group rating-2">
+                    <input type="radio" name="scout_criteria_5" value="2" required>
+                    <label>2</label>
+                </div>
+                <div class="radio-group rating-3">
+                    <input type="radio" name="scout_criteria_5" value="3" required>
+                    <label>3</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Teamarbeit -->
+    <div class="criteria-section">
+        <div class="criteria-header">6. Teamarbeit</div>
+        <div class="criteria-item">
+            <div class="criteria-label">Teamarbeit</div>
+            <div class="criteria-radio-container">
+                <div class="radio-group rating-1">
+                    <input type="radio" name="scout_criteria_6" value="1" required>
+                    <label>1</label>
+                </div>
+                <div class="radio-group rating-2">
+                    <input type="radio" name="scout_criteria_6" value="2" required>
+                    <label>2</label>
+                </div>
+                <div class="radio-group rating-3">
+                    <input type="radio" name="scout_criteria_6" value="3" required>
+                    <label>3</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -821,10 +790,6 @@
             </div>
         </form>
         </div>
-
-        
-
-     <script src="index.js"></script>
 </body>
-
+<script src="index.js"></script>
 </html> 
