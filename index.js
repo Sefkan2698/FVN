@@ -295,7 +295,7 @@ function generatePDF(formType) {
     if (topNav) topNav.style.display = 'none';
     
     // PDF erstellen
-    const { jsPDF } = window.jsPDF;
+    const { jsPDF } = window;
     const pdf = new jsPDF('p', 'mm', 'a4');
     
     // Titel hinzufügen
