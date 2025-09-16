@@ -43,11 +43,12 @@ function initializeBeobachtungsForm() {
         input.addEventListener('input', validateScoreFormat);
     });
 
-    // Add event listener for league selection to auto-fill squad
+    // Add event listener for league selection to auto-fill squad and email sections
     const leagueSelect = document.querySelector('#beobachtungsForm select[name="league"]');
     const squadSelect = document.querySelector('#beobachtungsForm select[name="squad"]');
 
     leagueSelect.addEventListener('change', function() {
+        // Squad-Auswahl anpassen
         if (this.value === 'B-NRL') {
             squadSelect.innerHTML = `
                 <option value="">Bitte wählen</option>
@@ -67,10 +68,36 @@ function initializeBeobachtungsForm() {
                 <option value="U20">U20</option>
             `;
         }
+
+        // Versand-Bereiche anzeigen/ausblenden
+        const emailInfos = document.querySelectorAll('#beobachtungsForm .email-info');
+        const aSection = Array.from(emailInfos).find(section => 
+            section.querySelector('.email-title').textContent.includes('A-Junioren')
+        );
+        const bSection = Array.from(emailInfos).find(section => 
+            section.querySelector('.email-title').textContent.includes('B-Junioren')
+        );
+
+        if (this.value === 'A-NRL') {
+            // Nur A-Junioren anzeigen
+            if (aSection) aSection.style.display = 'block';
+            if (bSection) bSection.style.display = 'none';
+        } else if (this.value === 'B-NRL') {
+            // Nur B-Junioren anzeigen
+            if (aSection) aSection.style.display = 'none';
+            if (bSection) bSection.style.display = 'block';
+        } else {
+            // Beide verstecken wenn keine Liga gewählt
+            if (aSection) aSection.style.display = 'none';
+            if (bSection) bSection.style.display = 'none';
+        }
     });
 
     // Add criteria change listeners for comments
     addCriteriaListeners('beobachtungsForm');
+    
+    // Add click listeners für radio groups
+    addRadioGroupClickListeners();
 }
 
 function initializeScoutingForm() {
@@ -86,6 +113,28 @@ function initializeScoutingForm() {
 
     // Add criteria change listeners for comments
     addCriteriaListeners('scoutingForm');
+    
+    // Add click listeners für radio groups
+    addRadioGroupClickListeners();
+}
+
+// Radio Group Click Listeners
+function addRadioGroupClickListeners() {
+    const radioGroups = document.querySelectorAll('.radio-group');
+    
+    radioGroups.forEach(group => {
+        group.addEventListener('click', function(e) {
+            // Verhindere Doppel-Trigger wenn direkt auf Radio geklickt wird
+            if (e.target.type === 'radio') return;
+            
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                // Trigger change event für Score-Berechnung
+                radio.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        });
+    });
 }
 
 // Validation Functions
@@ -267,13 +316,7 @@ function submitScoutingForm(event) {
 
 // PDF Generation Function
 function generatePDF(formType) {
-    console.log('Erstelle PDF mit jsPDF für:', formType);
-    
-    // Prüfe ob jsPDF geladen ist
-    if (typeof jsPDF === 'undefined') {
-        alert('jsPDF ist nicht geladen. Bitte Seite neu laden.');
-        return;
-    }
+    console.log('PDF wird mit Browser-Print erstellt für:', formType);
     
     const elementToCapture = formType === 'beobachtung' ? 
         document.getElementById('beobachtungsForm') : 
@@ -284,217 +327,40 @@ function generatePDF(formType) {
         return;
     }
     
-    // Elemente für PDF vorbereiten
-    const submitSection = elementToCapture.querySelector('.submit-section');
-    const topNav = elementToCapture.querySelector('.top-navigation');
-    
-    if (submitSection) submitSection.style.display = 'none';
-    if (topNav) topNav.style.display = 'none';
-    
-    // PDF erstellen
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    
-    // Titel hinzufügen
-    const title = formType === 'beobachtung' ? 
-        'FVN Beobachtungsbogen A- und B-Junioren-Niederrheinliga' : 
-        'FVN Scoutingbogen';
-    
-    pdf.setFontSize(16);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text(title, 105, 20, { align: 'center' });
-    
-    // Aktuelles Datum
-    pdf.setFontSize(10);
-    pdf.setFont('helvetica', 'normal');
-    pdf.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`, 20, 30);
-    
-    let yPosition = 45;
-    
-    // Formular-Daten sammeln
-    const formData = collectFormData(elementToCapture);
-    
-    // Informationen zur Beobachtung/Scouting
-    pdf.setFontSize(14);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text(formType === 'beobachtung' ? 'Informationen zur Beobachtung' : 'Informationen zum Scouting', 20, yPosition);
-    yPosition += 10;
-    
-    pdf.setFontSize(10);
-    pdf.setFont('helvetica', 'normal');
-    
-    // Basis-Informationen
-    const basicInfo = [
-        [`${formType === 'beobachtung' ? 'Beobachter' : 'Scout'}:`, formData.observer || formData.scout || ''],
-        ['Datum:', formData.date || ''],
-        ['Begegnung:', formData.match || ''],
-        ['Spielklasse:', formData.league || ''],
-        ['Schiedsrichter:', formData.referee || ''],
-        ['Halbzeitstand:', formData.halftime || ''],
-        ['Assistent 1:', formData.assistant1 || ''],
-        ['Endstand:', formData.fulltime || ''],
-        ['Assistent 2:', formData.assistant2 || ''],
-        ['Kader:', formData.squad || '']
-    ];
-    
-    basicInfo.forEach(([label, value]) => {
-        if (yPosition > 270) {
-            pdf.addPage();
-            yPosition = 20;
-        }
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(label, 20, yPosition);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text(value, 70, yPosition);
-        yPosition += 7;
-    });
-    
-    yPosition += 10;
-    
-    // Bewertungskriterien
-    pdf.setFontSize(14);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('Bewertungskriterien', 20, yPosition);
-    yPosition += 10;
-    
-    // Erläuterung
-    pdf.setFontSize(9);
-    pdf.setFont('helvetica', 'normal');
-    pdf.text('1 = Optimierungsbedarf, 2 = Entspricht Anforderungen, 3 = Überdurchschnittlich', 20, yPosition);
-    yPosition += 10;
-    
-    // Kriterien durchgehen
-    const criteria = getCriteriaData(formData, formType);
-    
-    criteria.forEach(([section, items]) => {
-        if (yPosition > 250) {
-            pdf.addPage();
-            yPosition = 20;
-        }
-        
-        // Sektion Header
-        pdf.setFontSize(12);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(section, 20, yPosition);
-        yPosition += 8;
-        
-        // Kriterien in der Sektion
-        items.forEach(([label, rating, comment]) => {
-            if (yPosition > 270) {
-                pdf.addPage();
-                yPosition = 20;
-            }
-            
-            pdf.setFontSize(10);
-            pdf.setFont('helvetica', 'normal');
-            pdf.text(label, 25, yPosition);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text(`Bewertung: ${rating}`, 120, yPosition);
-            yPosition += 6;
-            
-            if (comment) {
-                pdf.setFont('helvetica', 'italic');
-                const commentLines = pdf.splitTextToSize(`Kommentar: ${comment}`, 160);
-                pdf.text(commentLines, 25, yPosition);
-                yPosition += commentLines.length * 4;
-            }
-            yPosition += 3;
-        });
-        
-        yPosition += 5;
-    });
-    
-    // Textfelder (nur für Beobachtungsbogen)
-    if (formType === 'beobachtung' && (formData.positive_notes || formData.improvement_notes)) {
-        if (yPosition > 200) {
-            pdf.addPage();
-            yPosition = 20;
-        }
-        
-        pdf.setFontSize(14);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Erläuterung der Schiedsrichterleistung', 20, yPosition);
-        yPosition += 10;
-        
-        if (formData.positive_notes) {
-            pdf.setFontSize(12);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text('Positive Erkenntnisse:', 20, yPosition);
-            yPosition += 6;
-            
-            pdf.setFontSize(10);
-            pdf.setFont('helvetica', 'normal');
-            const positiveLines = pdf.splitTextToSize(formData.positive_notes, 170);
-            pdf.text(positiveLines, 20, yPosition);
-            yPosition += positiveLines.length * 4 + 10;
-        }
-        
-        if (formData.improvement_notes) {
-            if (yPosition > 250) {
-                pdf.addPage();
-                yPosition = 20;
-            }
-            
-            pdf.setFontSize(12);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text('Zu optimierende Bereiche:', 20, yPosition);
-            yPosition += 6;
-            
-            pdf.setFontSize(10);
-            pdf.setFont('helvetica', 'normal');
-            const improvementLines = pdf.splitTextToSize(formData.improvement_notes, 170);
-            pdf.text(improvementLines, 20, yPosition);
-            yPosition += improvementLines.length * 4;
-        }
+    // Andere Formulare ausblenden
+    document.getElementById('selectionScreen').style.display = 'none';
+    if (formType === 'beobachtung') {
+        document.getElementById('scoutingForm').style.display = 'none';
+    } else {
+        document.getElementById('beobachtungsForm').style.display = 'none';
     }
     
-    // Gesamtpunktzahl (nur für Beobachtungsbogen)
-    if (formType === 'beobachtung' && formData.summary) {
-        if (yPosition > 230) {
-            pdf.addPage();
-            yPosition = 20;
-        }
-        
-        pdf.setFontSize(14);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Beurteilung der Gesamtleistung', 20, yPosition);
-        yPosition += 10;
-        
-        pdf.setFontSize(12);
-        const summary = [
-            [`1 (Optimierungsbedarf): ${formData.summary.count1} × 1 =`, `${formData.summary.points1} Punkte`],
-            [`2 (Entspricht Anforderungen): ${formData.summary.count2} × 2 =`, `${formData.summary.points2} Punkte`],
-            [`3 (Überdurchschnittlich): ${formData.summary.count3} × 3 =`, `${formData.summary.points3} Punkte`]
-        ];
-        
-        summary.forEach(([left, right]) => {
-            pdf.text(left, 20, yPosition);
-            pdf.text(right, 120, yPosition);
-            yPosition += 7;
-        });
-        
-        yPosition += 5;
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(`Gesamtpunktzahl: ${formData.summary.totalPoints}`, 20, yPosition);
-    }
+    // Submit-Buttons und Navigation ausblenden
+    const elementsToHide = elementToCapture.querySelectorAll('.submit-section, .top-navigation');
+    elementsToHide.forEach(el => el.style.display = 'none');
     
-    // PDF speichern
-    const filename = `${formType}sbogen_${new Date().toISOString().split('T')[0]}.pdf`;
-    pdf.save(filename);
-    
-    // Elemente wieder einblenden
-    if (submitSection) submitSection.style.display = '';
-    if (topNav) topNav.style.display = '';
-    
-    // Success message ausblenden
+    // Print-Dialog öffnen
     setTimeout(() => {
-        if (formType === 'beobachtung') {
-            document.getElementById('successMessage').style.display = 'none';
-        } else {
-            document.getElementById('scoutSuccessMessage').style.display = 'none';
-        }
-    }, 2000);
+        window.print();
+        
+        // Nach dem Drucken alles zurücksetzen
+        setTimeout(() => {
+            document.getElementById('selectionScreen').style.display = '';
+            document.getElementById('beobachtungsForm').style.display = '';
+            document.getElementById('scoutingForm').style.display = '';
+            
+            elementsToHide.forEach(el => el.style.display = '');
+            
+            // Success message ausblenden
+            if (formType === 'beobachtung') {
+                document.getElementById('successMessage').style.display = 'none';
+            } else {
+                document.getElementById('scoutSuccessMessage').style.display = 'none';
+            }
+        }, 1000);
+    }, 100);
     
-    console.log('PDF erfolgreich erstellt und heruntergeladen');
+    console.log('Print-Dialog geöffnet');
 }
 
 // Hilfsfunktionen
