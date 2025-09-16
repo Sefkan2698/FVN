@@ -5,6 +5,6 @@
   node_bundler = "esbuild"
   external_node_modules = ["@sparticuz/chromium"]
 
-[[functions."generate-pdf"]]
+[functions."generate-pdf"]
   timeout = 30
   memory = 1024
