@@ -7,8 +7,6 @@
     "build": "echo 'Static site, no build needed'"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^121.0.0",
-    "puppeteer-core": "^21.6.0",
     "@netlify/functions": "^2.0.0"
   },
   "devDependencies": {},
