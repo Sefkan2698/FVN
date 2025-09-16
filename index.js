@@ -52,21 +52,18 @@ function initializeBeobachtungsForm() {
             squadSelect.innerHTML = `
                 <option value="">Bitte wählen</option>
                 <option value="U18" selected>U18</option>
-                <option value="U19">U19</option>
                 <option value="U20">U20</option>
             `;
         } else if (this.value === 'A-NRL') {
             squadSelect.innerHTML = `
                 <option value="">Bitte wählen</option>
                 <option value="U18">U18</option>
-                <option value="U19">U19</option>
                 <option value="U20" selected>U20</option>
             `;
         } else {
             squadSelect.innerHTML = `
                 <option value="">Bitte wählen</option>
                 <option value="U18">U18</option>
-                <option value="U19">U19</option>
                 <option value="U20">U20</option>
             `;
         }
@@ -269,13 +266,11 @@ function submitScoutingForm(event) {
 }
 
 // PDF Generation Function
-// Ersetze die generatePDF Funktion in deiner index.js:
-
 function generatePDF(formType) {
     console.log('Erstelle PDF mit jsPDF für:', formType);
     
     // Prüfe ob jsPDF geladen ist
-    if (typeof window.jsPDF === 'undefined' && typeof jsPDF === 'undefined') {
+    if (typeof jsPDF === 'undefined') {
         alert('jsPDF ist nicht geladen. Bitte Seite neu laden.');
         return;
     }
@@ -297,7 +292,6 @@ function generatePDF(formType) {
     if (topNav) topNav.style.display = 'none';
     
     // PDF erstellen
-     const { jsPDF } = window;
     const pdf = new jsPDF('p', 'mm', 'a4');
     
     // Titel hinzufügen
@@ -409,8 +403,8 @@ function generatePDF(formType) {
         yPosition += 5;
     });
     
-    // Textfelder
-    if (formData.positive_notes || formData.improvement_notes) {
+    // Textfelder (nur für Beobachtungsbogen)
+    if (formType === 'beobachtung' && (formData.positive_notes || formData.improvement_notes)) {
         if (yPosition > 200) {
             pdf.addPage();
             yPosition = 20;
@@ -492,7 +486,7 @@ function generatePDF(formType) {
     if (topNav) topNav.style.display = '';
     
     // Success message ausblenden
-    setTimeout(() => {a
+    setTimeout(() => {
         if (formType === 'beobachtung') {
             document.getElementById('successMessage').style.display = 'none';
         } else {
@@ -583,27 +577,6 @@ function getCriteriaData(formData, formType) {
             ]]
         ];
     }
-}
-
-// Hilfsfunktion um alle CSS-Regeln zu sammeln
-function getAllCSS() {
-    let css = '';
-    
-    // CSS aus den Stylesheets sammeln
-    for (let i = 0; i < document.styleSheets.length; i++) {
-        try {
-            const sheet = document.styleSheets[i];
-            if (sheet.cssRules) {
-                for (let j = 0; j < sheet.cssRules.length; j++) {
-                    css += sheet.cssRules[j].cssText + '\n';
-                }
-            }
-        } catch (e) {
-            console.warn('Could not access stylesheet:', e);
-        }
-    }
-    
-    return css;
 }
 
 // Comment Field Functions
